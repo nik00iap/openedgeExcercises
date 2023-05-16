@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "f33e8ff7-2f55-53ff-7f6e-90fda4d64ce5",
+		"name": "of-1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "query customer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Context",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/be/customer?count=4&columns=custnum,name&where=%40name%20begins%20%27s%27&by=name",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"be",
+						"customer"
+					],
+					"query": [
+						{
+							"key": "count",
+							"value": "4"
+						},
+						{
+							"key": "columns",
+							"value": "custnum,name"
+						},
+						{
+							"key": "where",
+							"value": "%40name%20begins%20%27s%27"
+						},
+						{
+							"key": "by",
+							"value": "name"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find customer by rowid",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Context",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/be/customer/0x0000000000000502",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"be",
+						"customer",
+						"0x0000000000000502"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create customer",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "cContext",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"request\": {\r\n\t\t\"tables\": {\r\n\t\t\t\"customer\": [\r\n    \t\t\t{\r\n    \t\t\t\t\"name\": \"MyCustomer\"\r\n    \t\t\t}\r\n    \t\t]\r\n\t\t}\r\n\t}\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/be/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"be",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update customer by rowid",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "cContext",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"request\": {\r\n\t\t\"tables\": {\r\n\t\t\t\"customer\": [\r\n    \t\t\t{\r\n    \t\t\t\t\"name\": \"MyCustomer3\"\r\n    \t\t\t}\r\n    \t\t],\r\n\t\t\t\"beforeTable\": [\r\n    \t\t\t{\r\n    \t\t\t\t\"name\": \"MyCustomer\"\r\n    \t\t\t}\r\n    \t\t]\r\n\t\t}\r\n\t}\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/be/customer/0x0000000000000554",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"be",
+						"customer",
+						"0x0000000000000554"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete customer by rowid",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "cContext",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/be/customer/0x0000000000000554",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"be",
+						"customer",
+						"0x0000000000000554"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jsdo catalog",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Context",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/jsdo/customer/catalog?columns=custnum,amountorder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"jsdo",
+						"customer",
+						"catalog"
+					],
+					"query": [
+						{
+							"key": "columns",
+							"value": "custnum,amountorder"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jsdo count",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Context",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/jsdo/customer/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"jsdo",
+						"customer",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jsdo query",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Context",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/jsdo/customer?filter= {\"ablFilter\":\"(Name BEGINS 'l' and City BEGINS 'b')\", \"skip\":30, \"top\":5, \"orderBy\":\"Name\", \"id\":\"0x00000000000000f1\"}&columns=CustNum,Name,City",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"jsdo",
+						"customer"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": " {\"ablFilter\":\"(Name BEGINS 'l' and City BEGINS 'b')\", \"skip\":30, \"top\":5, \"orderBy\":\"Name\", \"id\":\"0x00000000000000f1\"}"
+						},
+						{
+							"key": "columns",
+							"value": "CustNum,Name,City"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "call family.postTest()",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Context",
+						"value": "{ \"User\": \"Smith\",\"SessionId\": \"987654321\", \"Lang\": \"EN\"}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"request\":{\r\n  \"parameters\":\r\n    { \"cIn\": \"1234\",\r\n      \"iOut\": \"0\",\r\n      \"cInOut\": \"test\",\r\n      \"hbOrder\": \"tOrder\",\r\n      \"hbOrderline\": \"tOrderline\"\r\n    },\r\n   \"tables\":\r\n   {\r\n   \"tOrder\": [\r\n    {\r\n      \"number\": \"4545\",\r\n      \"extra\": \"dsfss\"\r\n    },\r\n    {\r\n      \"number\": \"666\",\r\n      \"extra\": \"wwfwfwfwA\"\r\n    }\r\n   ],\r\n   \"tOrderline\": [\r\n    {\r\n      \"number\": \"4545\",\r\n      \"extra\": \"dsfss\"\r\n    },\r\n    {\r\n      \"number\": \"666\",\r\n      \"extra\": \"wwfwfwfwA\"\r\n    }\r\n   ]\r\n   \r\n   }\r\n}}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:16405/web/of1/be/family/postTest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "16405",
+					"path": [
+						"web",
+						"of1",
+						"be",
+						"family",
+						"postTest"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
