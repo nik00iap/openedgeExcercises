@@ -14,21 +14,15 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.TempTableTime: 
   
-  DEFINE TEMP-TABLE tt-Customer
+  DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
     INDEX CustNum CustNum.
-    
-  DEFINE VARIABLE cCountryFrom  AS CHARACTER NO-UNDO.
-  DEFINE VARIABLE cCountryTo    AS CHARACTER NO-UNDO.
-  DEFINE VARIABLE cNameFrom     AS CHARACTER NO-UNDO.    
-  DEFINE VARIABLE cNameTo       AS CHARACTER NO-UNDO. 
   
-  
-  DEFINE STREAM     sExport.
-  DEFINE VARIABLE   cSqlExportFileName AS CHARACTER NO-UNDO.  
+  DEFINE STREAM   sExport.
+  DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.  
   
   /*------------------------------------------------------------------------------
    Purpose:

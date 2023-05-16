@@ -13,7 +13,7 @@
   ----------------------------------------------------------------------*/
 
 /* ***************************  Definitions  ************************** */
-  DEFINE TEMP-TABLE tt-Customer REFERENCE-ONLY
+  DEFINE TEMP-TABLE tt-Customer REFERENCE-ONLY NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL

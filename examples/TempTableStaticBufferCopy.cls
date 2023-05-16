@@ -14,7 +14,7 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.TempTableStaticBufferCopy: 
   
-  DEFINE TEMP-TABLE tt-Customer
+  DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name AS CHARACTER
     FIELD Balance AS DECIMAL
@@ -40,7 +40,7 @@ CLASS OpenedgeExercises.TempTableStaticBufferCopy:
   ------------------------------------------------------------------------------*/  
   METHOD PRIVATE VOID mFillTT():
     DEFINE BUFFER btt-Customer FOR tt-Customer.
-    DEFINE BUFFER bCustomer FOR Customer.
+    DEFINE BUFFER bCustomer    FOR Customer.
     
     FOR EACH bCustomer NO-LOCK:
       CREATE btt-Customer.

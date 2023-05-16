@@ -19,15 +19,9 @@ CLASS OpenedgeExercises.TempTableWhere:
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
     INDEX CustNum CustNum.
-    
-  DEFINE VARIABLE cCountryFrom  AS CHARACTER NO-UNDO.
-  DEFINE VARIABLE cCountryTo    AS CHARACTER NO-UNDO.
-  DEFINE VARIABLE cNameFrom     AS CHARACTER NO-UNDO.    
-  DEFINE VARIABLE cNameTo       AS CHARACTER NO-UNDO. 
-  
-  
-  DEFINE STREAM     sExport.
-  DEFINE VARIABLE   cSqlExportFileName AS CHARACTER NO-UNDO.  
+
+  DEFINE STREAM   sExport.
+  DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.  
   
   /*------------------------------------------------------------------------------
    Purpose:
@@ -36,12 +30,8 @@ CLASS OpenedgeExercises.TempTableWhere:
 
   CONSTRUCTOR PUBLIC TempTableWhere (  ):
     SUPER ().
-    cCountryFrom = "a".
-    cCountryTo   = "Z".
-    cNameFrom    = "a".
-    cNameTo      = "Z".
-  
-    mFillTT().
+
+    mFillTT("a", "z", "a", "z").
     MESSAGE "Finished writing"
     VIEW-AS ALERT-BOX.   
   END CONSTRUCTOR.
@@ -51,7 +41,10 @@ CLASS OpenedgeExercises.TempTableWhere:
    Purpose:Reads a Database with limiters either Set by an IF or by a WHERE and writes the time it takes into a document.
    Notes:
   ------------------------------------------------------------------------------*/
-  METHOD PRIVATE VOID mFillTT():
+  METHOD PRIVATE VOID mFillTT(pcCountryFrom AS CHARACTER, 
+                              pcCountryTo   AS CHARACTER,
+                              pcNameFrom    AS CHARACTER, 
+                              pcNameTo      AS CHARACTER):
     DEFINE VARIABLE iX        AS INTEGER NO-UNDO.
     DEFINE VARIABLE iStart    AS INTEGER NO-UNDO.
     DEFINE VARIABLE iEnd      AS INTEGER NO-UNDO.
@@ -67,7 +60,7 @@ CLASS OpenedgeExercises.TempTableWhere:
     
     PUT STREAM sExport UNFORMATTED 
       SKIP 
-      '"Exercise Conditions: Country From "' cCountryFrom '" to "' cCountryTo '" and Name From "' cNameFrom '" to "' cNameTo '"' ' Date: ' STRING(NOW) SKIP
+      '"Exercise Conditions: Country From "' pcCountryFrom '" to "' pcCountryTo '" and Name From "' pcNameFrom '" to "' pcNameTo '"' ' Date: ' STRING(NOW) SKIP
       SESSION:STARTUP-PARAMETERS SKIP.
       
       
@@ -79,17 +72,17 @@ CLASS OpenedgeExercises.TempTableWhere:
       
 /*      FOR EACH bCustomer NO-LOCK:                                   */
 /*        iRecs = iRecs + 1.                                          */
-/*        IF (cCountryFrom  = "" OR bCustomer.Country >= cCountryFrom)*/
-/*        AND (cCountryTo   = "" OR bCustomer.Country <= cCountryTo)  */
-/*        AND (cNameFrom    = "" OR bCustomer.Name    >= cNameFrom)   */
-/*        AND (cNameTo      = "" OR bCustomer.Name    <= cNameTo)     */
+/*        IF (pcCountryFrom  = "" OR bCustomer.Country >= pcCountryFrom)*/
+/*        AND (pcCountryTo   = "" OR bCustomer.Country <= pcCountryTo)  */
+/*        AND (pcNameFrom    = "" OR bCustomer.Name    >= pcNameFrom)   */
+/*        AND (pcNameTo      = "" OR bCustomer.Name    <= pcNameTo)     */
 /*        THEN DO:                                                    */
           
         FOR EACH bCustomer 
-          WHERE (cCountryFrom  = ""  OR bCustomer.Country >= cCountryFrom)
-            AND (cCountryTo    = ""  OR bCustomer.Country <= cCountryTo)
-            AND (cNameFrom     = ""  OR bCustomer.Name    >= cNameFrom)
-            AND (cNameTo       = ""  OR bCustomer.Name    <= cNameTo) 
+          WHERE (pcCountryFrom  = ""  OR bCustomer.Country >= pcCountryFrom)
+            AND (pcCountryTo    = ""  OR bCustomer.Country <= pcCountryTo)
+            AND (pcNameFrom     = ""  OR bCustomer.Name    >= pcNameFrom)
+            AND (pcNameTo       = ""  OR bCustomer.Name    <= pcNameTo) 
             NO-LOCK:
           iRecs = iRecs + 1.
           

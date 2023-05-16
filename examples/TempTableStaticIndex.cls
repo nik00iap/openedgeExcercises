@@ -14,7 +14,7 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.TempTableStaticIndex: 
   
-  DEFINE TEMP-TABLE tt-Customer LIKE Customer.
+  DEFINE TEMP-TABLE tt-Customer LIKE Customer NO-UNDO.
     
   /*------------------------------------------------------------------------------
    Purpose:
@@ -35,11 +35,11 @@ CLASS OpenedgeExercises.TempTableStaticIndex:
   ------------------------------------------------------------------------------*/  
   METHOD PRIVATE VOID mFillTT():
     DEFINE BUFFER btt-Customer FOR tt-Customer.
-    DEFINE BUFFER bCustomer FOR Customer.
+    DEFINE BUFFER bCustomer    FOR Customer.
     
     FOR EACH bCustomer NO-LOCK:
       CREATE btt-Customer.
-       BUFFER-COPY bCustomer TO btt-Customer.
+        BUFFER-COPY bCustomer TO btt-Customer.
       
     END.
   END METHOD.
@@ -50,9 +50,10 @@ CLASS OpenedgeExercises.TempTableStaticIndex:
   ------------------------------------------------------------------------------*/  
   METHOD PRIVATE VOID mStuffTT():
     DEFINE VARIABLE iX AS INTEGER NO-UNDO.
+    
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
-    DO iX = 10000 TO 1000000:
+    DO iX = 20001 TO 1000000:
      
         CREATE btt-Customer.
           ASSIGN
@@ -69,6 +70,7 @@ CLASS OpenedgeExercises.TempTableStaticIndex:
   ------------------------------------------------------------------------------*/ 
   METHOD PUBLIC VOID mDisplayTT():
     DEFINE BUFFER btt-Customer FOR tt-Customer.
+    
     FOR EACH btt-Customer BY CustNum:
       DISPLAY btt-Customer EXCEPT btt-Customer.Comments.
     END.
@@ -79,9 +81,13 @@ CLASS OpenedgeExercises.TempTableStaticIndex:
     DEFINE VARIABLE iEnd   AS INTEGER NO-UNDO.
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
+    
     iStart = MTIME.
+    
     FIND btt-Customer WHERE btt-Customer.CustNum = 3035 USE-INDEX CustNum NO-LOCK NO-ERROR.
+    
     iEnd = MTIME.
+    
 /*    IF AVAILABLE btt-Customer THEN DO:                  */
 /*      DISPLAY btt-Customer EXCEPT btt-Customer.Comments.*/
 /*    END.                                                */
