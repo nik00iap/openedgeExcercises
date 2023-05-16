@@ -13,17 +13,12 @@ USING Progress.Lang.*.
 
 
 CLASS OpenedgeExercises.FunctionInWhereClause: 
-  DEFINE TEMP-TABLE tt-Customer
+  DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
     INDEX CustNum CustNum.
-    
-  DEFINE VARIABLE cCountryFrom  AS CHARACTER NO-UNDO.
-  DEFINE VARIABLE cCountryTo    AS CHARACTER NO-UNDO.
-  DEFINE VARIABLE cNameFrom     AS CHARACTER NO-UNDO.    
-  DEFINE VARIABLE cNameTo       AS CHARACTER NO-UNDO. 
   
   
   DEFINE STREAM     sExport.
@@ -36,13 +31,9 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
 
   CONSTRUCTOR PUBLIC FunctionInWhereClause (  ):
     SUPER ().
-    cCountryFrom = "z".
-    cCountryTo   = "a".
-    cNameFrom    = "z".
-    cNameTo      = "a".
   
-    mReadDatabase().
-    mReadDatabaseWithFunction().
+    mReadDatabase("a", "z").
+    mReadDatabaseWithFunction("a", "z").
     
     MESSAGE "Finished writing"
     VIEW-AS ALERT-BOX.   
@@ -53,7 +44,8 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
    Purpose: Reads entrys from a Database that fulfil the WHERE Clause
    Notes:
   ------------------------------------------------------------------------------*/
-  METHOD PRIVATE VOID mReadDatabase():
+  METHOD PRIVATE VOID mReadDatabase(pcCountryFrom AS CHARACTER, 
+                                    pcCountryTo   AS CHARACTER):
     DEFINE VARIABLE iX        AS INTEGER NO-UNDO.
     DEFINE VARIABLE iStart    AS INTEGER NO-UNDO.
     DEFINE VARIABLE iEnd      AS INTEGER NO-UNDO.
@@ -68,7 +60,7 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
     
     PUT STREAM sExport UNFORMATTED 
       SKIP 
-      '"Exercise Conditions: Country From "' cCountryFrom '" to "' cCountryTo '"' ' Date: ' STRING(NOW) SKIP
+      '"Exercise Conditions: Country From "' pcCountryFrom '" to "' pcCountryTo '"' ' Date: ' STRING(NOW) SKIP
       SESSION:STARTUP-PARAMETERS SKIP.
       
       
@@ -79,8 +71,8 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
       iStart = MTIME.
 
         FOR EACH bCustomer 
-          WHERE bCustomer.Country >= cCountryFrom
-            AND bCustomer.Country <= cCountryTo
+          WHERE bCustomer.Country >= pcCountryFrom
+            AND bCustomer.Country <= pcCountryTo
             NO-LOCK:
           iRecs = iRecs + 1.
 
@@ -101,7 +93,8 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
    Purpose: Reads entrys from a Database that fulfil the WHERE Clause
    Notes: The Where Clause contains functions
   ------------------------------------------------------------------------------*/
-  METHOD PRIVATE VOID mReadDatabaseWithFunction():
+  METHOD PRIVATE VOID mReadDatabaseWithFunction(pcCountryFrom AS CHARACTER, 
+                                                pcCountryTo   AS CHARACTER):
     DEFINE VARIABLE iX        AS INTEGER NO-UNDO.
     DEFINE VARIABLE iStart    AS INTEGER NO-UNDO.
     DEFINE VARIABLE iEnd      AS INTEGER NO-UNDO.
@@ -116,7 +109,7 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
     
     PUT STREAM sExport UNFORMATTED 
       SKIP 
-      '"Exercise Conditions: Country From "' cCountryFrom '" to "' cCountryTo '"' ' Date: ' STRING(NOW) SKIP
+      '"Exercise Conditions: Country From "' pcCountryFrom '" to "' pcCountryTo '"' ' Date: ' STRING(NOW) SKIP
       SESSION:STARTUP-PARAMETERS SKIP.
       
       
@@ -127,8 +120,8 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
       iStart = MTIME.
 
         FOR EACH bCustomer 
-          WHERE SUBSTRING (bCustomer.Country,1) >= cCountryFrom
-            AND SUBSTRING (bCustomer.Country,1) <= cCountryTo
+          WHERE SUBSTRING (bCustomer.Country,1) >= pcCountryFrom
+            AND SUBSTRING (bCustomer.Country,1) <= pcCountryTo
             NO-LOCK:
           iRecs = iRecs + 1.
 

@@ -13,7 +13,7 @@ USING Progress.Lang.*.
 
 
 CLASS OpenedgeExercises.PersistentProcedureUse: 
-  DEFINE TEMP-TABLE tt-Customer
+  DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL

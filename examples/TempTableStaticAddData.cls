@@ -14,7 +14,7 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.TempTableStaticAddData: 
   
-  DEFINE TEMP-TABLE tt-Customer
+  DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name AS CHARACTER
     FIELD Balance AS DECIMAL
@@ -40,9 +40,8 @@ CLASS OpenedgeExercises.TempTableStaticAddData:
    Notes:
   ------------------------------------------------------------------------------*/  
   METHOD PRIVATE VOID mFillTT():
-    DEFINE BUFFER btt-Customer FOR tt-Customer.
-    
-    DEFINE BUFFER bCustomer FOR Customer.
+    DEFINE BUFFER btt-Customer FOR tt-Customer.   
+    DEFINE BUFFER bCustomer    FOR Customer.
     
     FOR EACH bCustomer:
       CREATE btt-Customer.
@@ -61,6 +60,7 @@ CLASS OpenedgeExercises.TempTableStaticAddData:
   ------------------------------------------------------------------------------*/  
   METHOD PRIVATE VOID mAddDataToTT():
     DEFINE VARIABLE iX AS INTEGER NO-UNDO.
+    
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
     DO iX = 1 TO 1000:

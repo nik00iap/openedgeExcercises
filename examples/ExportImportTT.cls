@@ -14,7 +14,7 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.ExportImportTT: 
   
-  DEFINE TEMP-TABLE tt-Customer
+  DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
@@ -23,13 +23,14 @@ CLASS OpenedgeExercises.ExportImportTT:
       
   /*------------------------------------------------------------------------------
    Purpose:
-   Notes:
+   Notes:"C:\temp\SportsCustJSON.json".
+         "C:\temp\SportsCustXML.xml"         
   ------------------------------------------------------------------------------*/
 
   CONSTRUCTOR PUBLIC ExportImportTT (  ):
     SUPER ().
 
-    mImportXML().
+    mImportXML("C:\temp\SportsCustXML.xml").
     mDisplayTT().
     
     MESSAGE "finished"
@@ -40,16 +41,15 @@ CLASS OpenedgeExercises.ExportImportTT:
    Purpose:Write a TempTable as a .json file
    Notes:
   ------------------------------------------------------------------------------*/   
-  METHOD PUBLIC VOID mExportJSON():
+  METHOD PUBLIC VOID mExportJSON(pcFile AS CHARACTER):
     DEFINE VARIABLE cTargetType AS CHARACTER NO-UNDO.
     DEFINE VARIABLE cFile       AS CHARACTER NO-UNDO.
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
     cTargetType = "file".
-    cFile       = "C:\temp\SportsCustJSON.json".
     
-    TEMP-TABLE btt-Customer:WRITE-JSON(cTargetType, cFile, TRUE).
+    TEMP-TABLE btt-Customer:WRITE-JSON(cTargetType, pcFile, TRUE).
     
   END METHOD.
  
@@ -57,16 +57,15 @@ CLASS OpenedgeExercises.ExportImportTT:
    Purpose:Read a .json file and write it as a TempTable 
    Notes:
   ------------------------------------------------------------------------------*/  
-  METHOD PUBLIC VOID mImportJSON():
+  METHOD PUBLIC VOID mImportJSON(pcFile AS CHARACTER):
     DEFINE VARIABLE cTargetType AS CHARACTER NO-UNDO.
     DEFINE VARIABLE cFile       AS CHARACTER NO-UNDO.
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
     cTargetType = "file".
-    cFile       = "C:\temp\SportsCustJSON.json".
     
-    TEMP-TABLE btt-Customer:READ-JSON(cTargetType, cFile, "empty").
+    TEMP-TABLE btt-Customer:READ-JSON(cTargetType, pcFile, "empty").
     
   END METHOD.
    
@@ -74,16 +73,15 @@ CLASS OpenedgeExercises.ExportImportTT:
    Purpose:Write a TempTable as a .xml file
    Notes:
   ------------------------------------------------------------------------------*/  
-  METHOD PUBLIC VOID mExportXML():
+  METHOD PUBLIC VOID mExportXML(pcFile AS CHARACTER):
     DEFINE VARIABLE cTargetType AS CHARACTER NO-UNDO.
     DEFINE VARIABLE cFile       AS CHARACTER NO-UNDO.
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
     cTargetType = "file".
-    cFile       = "C:\temp\SportsCustXML.xml".
     
-    TEMP-TABLE btt-Customer:WRITE-XML(cTargetType, cFile, TRUE).
+    TEMP-TABLE btt-Customer:WRITE-XML(cTargetType, pcFile, TRUE).
         
   END METHOD.
   
@@ -91,16 +89,15 @@ CLASS OpenedgeExercises.ExportImportTT:
    Purpose:Read a .xml file and write it as a TempTable 
    Notes:
   ------------------------------------------------------------------------------*/  
-  METHOD PUBLIC VOID mImportXML():
+  METHOD PUBLIC VOID mImportXML(pcFile AS CHARACTER):
     DEFINE VARIABLE cTargetType AS CHARACTER NO-UNDO.
     DEFINE VARIABLE cFile       AS CHARACTER NO-UNDO.
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
     cTargetType = "file".
-    cFile       = "C:\temp\SportsCustXML.xml".
     
-    TEMP-TABLE btt-Customer:READ-XML(cTargetType, cFile, "empty", "", ?).
+    TEMP-TABLE btt-Customer:READ-XML(cTargetType, pcFile, "empty", "", ?).
         
   END METHOD.  
   

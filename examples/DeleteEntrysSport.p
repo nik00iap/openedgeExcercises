@@ -12,13 +12,6 @@
     Notes       :
   ----------------------------------------------------------------------*/
 
-/* ***************************  Definitions  ************************** */
-
-
-/* ********************  Preprocessor Definitions  ******************** */
-
-
-/* ***************************  Main Block  *************************** */
 DEFINE VARIABLE iX AS INTEGER NO-UNDO.
 DEFINE BUFFER bCustomer FOR Customer.
 

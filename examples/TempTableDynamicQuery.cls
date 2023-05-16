@@ -14,15 +14,15 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.TempTableDynamicQuery: 
 
-  DEFINE TEMP-TABLE tt-Customer
+  DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
     INDEX CustNum CustNum.
     
-  DEFINE STREAM     sExport.
-  DEFINE VARIABLE   cSqlExportFileName AS CHARACTER NO-UNDO.
+  DEFINE STREAM   sExport.
+  DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.
     
   
   /*------------------------------------------------------------------------------
