@@ -13,12 +13,12 @@ USING Progress.Lang.*.
 
 
 CLASS OpenedgeExercises.TempTableWhere: 
-  DEFINE TEMP-TABLE tt-Customer
+  DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
 
   DEFINE STREAM   sExport.
   DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.  
@@ -78,13 +78,13 @@ CLASS OpenedgeExercises.TempTableWhere:
 /*        AND (pcNameTo      = "" OR bCustomer.Name    <= pcNameTo)     */
 /*        THEN DO:                                                    */
           
-        FOR EACH bCustomer 
-          WHERE (pcCountryFrom  = ""  OR bCustomer.Country >= pcCountryFrom)
-            AND (pcCountryTo    = ""  OR bCustomer.Country <= pcCountryTo)
-            AND (pcNameFrom     = ""  OR bCustomer.Name    >= pcNameFrom)
-            AND (pcNameTo       = ""  OR bCustomer.Name    <= pcNameTo) 
-            NO-LOCK:
-          iRecs = iRecs + 1.
+      FOR EACH bCustomer 
+        WHERE (pcCountryFrom  = ""  OR bCustomer.Country >= pcCountryFrom)
+          AND (pcCountryTo    = ""  OR bCustomer.Country <= pcCountryTo)
+          AND (pcNameFrom     = ""  OR bCustomer.Name    >= pcNameFrom)
+          AND (pcNameTo       = ""  OR bCustomer.Name    <= pcNameTo) 
+          NO-LOCK:
+        iRecs = iRecs + 1.
           
 /*          IF NOT lReadOnly THEN DO:                    */
 /*            CREATE btt-Customer.                       */

@@ -18,7 +18,7 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
   
   
   DEFINE STREAM     sExport.
@@ -70,12 +70,11 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
       iRecs = 0.
       iStart = MTIME.
 
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country >= pcCountryFrom
-            AND bCustomer.Country <= pcCountryTo
-            NO-LOCK:
-          iRecs = iRecs + 1.
-
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country >= pcCountryFrom
+          AND bCustomer.Country <= pcCountryTo
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
     
       iEnd = MTIME.
@@ -119,12 +118,11 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
       iRecs = 0.
       iStart = MTIME.
 
-        FOR EACH bCustomer 
-          WHERE SUBSTRING (bCustomer.Country,1) >= pcCountryFrom
-            AND SUBSTRING (bCustomer.Country,1) <= pcCountryTo
-            NO-LOCK:
-          iRecs = iRecs + 1.
-
+      FOR EACH bCustomer 
+        WHERE SUBSTRING (bCustomer.Country,1) >= pcCountryFrom
+          AND SUBSTRING (bCustomer.Country,1) <= pcCountryTo
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
     
       iEnd = MTIME.

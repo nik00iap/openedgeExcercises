@@ -16,13 +16,13 @@ CLASS OpenedgeExercises.TempTableTime:
   
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
-    FIELD Name AS CHARACTER
+    FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
   
-  DEFINE STREAM   sExport.
-  DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.  
+  DEFINE STREAM sExport.
+ 
   
   /*------------------------------------------------------------------------------
    Purpose:
@@ -42,11 +42,12 @@ CLASS OpenedgeExercises.TempTableTime:
    Notes:
   ------------------------------------------------------------------------------*/
   METHOD PRIVATE VOID mReadTT():
-    DEFINE VARIABLE iX        AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iStart    AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iEnd      AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iRecs     AS INTEGER NO-UNDO.
-    DEFINE VARIABLE lReadOnly AS LOGICAL NO-UNDO.
+    DEFINE VARIABLE iX                 AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iStart             AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iEnd               AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iRecs              AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE lReadOnly          AS LOGICAL   NO-UNDO.
+    DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO. 
 
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     DEFINE BUFFER bCustomer    FOR Customer.

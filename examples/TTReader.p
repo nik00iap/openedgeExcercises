@@ -13,17 +13,13 @@
   ----------------------------------------------------------------------*/
 
 /* ***************************  Definitions  ************************** */
-  DEFINE TEMP-TABLE tt-Customer REFERENCE-ONLY NO-UNDO
+  DEFINE TEMP-TABLE tt-Customer REFERENCE-ONLY
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
 
-/* ********************  Preprocessor Definitions  ******************** */
-
-
-/* ***************************  Main Block  *************************** */
 
 
 /*------------------------------------------------------------------------------
@@ -42,11 +38,11 @@ END PROCEDURE.
 ------------------------------------------------------------------------------*/
 PROCEDURE TTRead:
 
-DEFINE BUFFER btt-Customer FOR tt-Customer.
+  DEFINE BUFFER btt-Customer FOR tt-Customer.
      
-    FOR EACH btt-Customer BY CustNum:
-      DISPLAY btt-Customer.
-    END.
+  FOR EACH btt-Customer BY CustNum:
+    DISPLAY btt-Customer.
+  END.
     
 END PROCEDURE.
 
@@ -60,7 +56,7 @@ PROCEDURE findCustomer:
   
   DEFINE BUFFER btt-Customer FOR tt-Customer.
   
-  FIND FIRST btt-Customer WHERE btt-Customer.CustNum = iCustNum NO-LOCK.
+  FIND FIRST btt-Customer WHERE btt-Customer.CustNum = iCustNum NO-LOCK NO-ERROR.
   IF AVAILABLE btt-Customer THEN DO:
     DISPLAY btt-Customer.
   END.

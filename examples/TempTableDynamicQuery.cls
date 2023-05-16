@@ -19,10 +19,9 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
     
   DEFINE STREAM   sExport.
-  DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.
     
   
   /*------------------------------------------------------------------------------
@@ -44,12 +43,13 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
   ------------------------------------------------------------------------------*/  
   METHOD PUBLIC VOID mDynamicWrite():
     
-    DEFINE VARIABLE hDynBufExpTable   AS HANDLE NO-UNDO.
-    DEFINE VARIABLE hDynQueryExpTable AS HANDLE NO-UNDO.
-    DEFINE VARIABLE cWhereClause      AS CHARACTER NO-UNDO.
-    DEFINE VARIABLE iStart            AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iEnd              AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iRecs             AS INTEGER NO-UNDO.
+    DEFINE VARIABLE hDynBufExpTable    AS HANDLE    NO-UNDO.
+    DEFINE VARIABLE hDynQueryExpTable  AS HANDLE    NO-UNDO.
+    DEFINE VARIABLE cWhereClause       AS CHARACTER NO-UNDO.
+    DEFINE VARIABLE iStart             AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iEnd               AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iRecs              AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
@@ -74,19 +74,21 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
   
     hDynQueryExpTable:QUERY-OPEN.
     
-    RECORDLOOP: DO WHILE TRUE:
+    RECORDLOOP:
+    DO WHILE TRUE:
       hDynQueryExpTable:GET-NEXT().
       IF hDynQueryExpTable:QUERY-OFF-END THEN LEAVE.
-        iRecs = iRecs + 1.
-        CREATE btt-Customer.
-        ASSIGN
-          btt-Customer.CustNum  = hDynBufExpTable:BUFFER-FIELD("CustNum"):BUFFER-VALUE /*Complete Version to Access Buffer Data*/
-          btt-Customer.Name     = hDynBufExpTable::NAME                                /*Shortcut Version to Access Buffer Data*/
-          btt-Customer.Balance  = hDynBufExpTable::Balance
-          btt-Customer.Country  = hDynBufExpTable::Country
-        .
-          
-      END.
+      
+      iRecs = iRecs + 1.
+      CREATE btt-Customer.
+      ASSIGN
+        btt-Customer.CustNum  = hDynBufExpTable:BUFFER-FIELD("CustNum"):BUFFER-VALUE /*Complete Version to Access Buffer Data*/
+        btt-Customer.Name     = hDynBufExpTable::NAME                                /*Shortcut Version to Access Buffer Data*/
+        btt-Customer.Balance  = hDynBufExpTable::Balance
+        btt-Customer.Country  = hDynBufExpTable::Country
+      .
+        
+    END.
     iEnd = MTIME.
     PUT STREAM sExport UNFORMATTED 
       "Records: " iRecs " Time: " iEnd - iStart "ms rec/s: "  ( iRecs / ( iEnd - iStart )) * 1000  FORMAT ">,>>>,>>9.99"  SKIP. 
@@ -95,7 +97,7 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
     FINALLY:
       DELETE OBJECT hDynQueryExpTable.
       DELETE OBJECT hDynBufExpTable.
-       OUTPUT STREAM sExport CLOSE.
+      OUTPUT STREAM sExport CLOSE.
     END FINALLY.
   END METHOD.
   
@@ -105,13 +107,13 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
   ------------------------------------------------------------------------------*/    
   METHOD PUBLIC VOID mDynamicRead():
     
-    DEFINE VARIABLE hDynBufExpTable   AS HANDLE NO-UNDO.
-    DEFINE VARIABLE hDynQueryExpTable AS HANDLE NO-UNDO.
-    DEFINE VARIABLE cWhereClause      AS CHARACTER NO-UNDO.
-    DEFINE VARIABLE iStart            AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iEnd              AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iRecs             AS INTEGER NO-UNDO.
-    
+    DEFINE VARIABLE hDynBufExpTable    AS HANDLE    NO-UNDO.
+    DEFINE VARIABLE hDynQueryExpTable  AS HANDLE    NO-UNDO.
+    DEFINE VARIABLE cWhereClause       AS CHARACTER NO-UNDO.
+    DEFINE VARIABLE iStart             AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iEnd               AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iRecs              AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
     cSqlExportFileName = 'C:\temp\DynamicDatabseRead.txt'.
@@ -135,11 +137,13 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
   
     hDynQueryExpTable:QUERY-OPEN.
     
-    RECORDLOOP: DO WHILE TRUE:
+    RECORDLOOP:
+    DO WHILE TRUE:
       hDynQueryExpTable:GET-NEXT().
       IF hDynQueryExpTable:QUERY-OFF-END THEN LEAVE.
-        iRecs = iRecs + 1.
-      END.
+      
+      iRecs = iRecs + 1.
+    END.
     iEnd = MTIME.
     PUT STREAM sExport UNFORMATTED 
       "Records: " iRecs " Time: " iEnd - iStart "ms rec/s: "  ( iRecs / ( iEnd - iStart )) * 1000  FORMAT ">,>>>,>>9.99"  SKIP. 
@@ -148,7 +152,7 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
     FINALLY:
       DELETE OBJECT hDynQueryExpTable.
       DELETE OBJECT hDynBufExpTable.
-       OUTPUT STREAM sExport CLOSE.
+      OUTPUT STREAM sExport CLOSE.
     END FINALLY.
   END METHOD.
   
@@ -174,11 +178,13 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
   
     hDynQueryExpTable:QUERY-OPEN.
     
-    RECORDLOOP: DO WHILE TRUE:
+    RECORDLOOP:
+    DO WHILE TRUE:
       hDynQueryExpTable:GET-NEXT().
       IF hDynQueryExpTable:QUERY-OFF-END THEN LEAVE.
-        DISPLAY hDynBufExpTable::CustNum hDynBufExpTable::NAME.
-      END.
+      
+      DISPLAY hDynBufExpTable::CustNum hDynBufExpTable::NAME.
+    END.
       
     RETURN.
     FINALLY:

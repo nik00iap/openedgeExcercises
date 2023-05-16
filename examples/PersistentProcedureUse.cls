@@ -18,7 +18,7 @@ CLASS OpenedgeExercises.PersistentProcedureUse:
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
     
   DEFINE VARIABLE hReader AS HANDLE NO-UNDO.    
   /*------------------------------------------------------------------------------
@@ -32,8 +32,6 @@ CLASS OpenedgeExercises.PersistentProcedureUse:
     mFillTT().
     RUN OpenedgeExercises/TTReader.p PERSISTENT SET hReader.
     RUN fillTable IN hReader (INPUT TABLE tt-Customer BIND).
-    MESSAGE hReader:INTERNAL-ENTRIES 
-    VIEW-AS ALERT-BOX.
     //RUN deleteOdds IN hReader.
 
     RUN ttRead IN hReader.
@@ -60,7 +58,7 @@ CLASS OpenedgeExercises.PersistentProcedureUse:
   ------------------------------------------------------------------------------*/
   METHOD PRIVATE VOID mFillTT():
     DEFINE BUFFER btt-Customer FOR tt-Customer.
-    DEFINE BUFFER bCustomer FOR Customer.
+    DEFINE BUFFER bCustomer    FOR Customer.
     
     FOR EACH bCustomer NO-LOCK:
       CREATE btt-Customer.

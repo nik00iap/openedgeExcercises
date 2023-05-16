@@ -19,7 +19,7 @@ CLASS OpenedgeExercises.ExportImportTT:
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
       
   /*------------------------------------------------------------------------------
    Purpose:
@@ -43,7 +43,6 @@ CLASS OpenedgeExercises.ExportImportTT:
   ------------------------------------------------------------------------------*/   
   METHOD PUBLIC VOID mExportJSON(pcFile AS CHARACTER):
     DEFINE VARIABLE cTargetType AS CHARACTER NO-UNDO.
-    DEFINE VARIABLE cFile       AS CHARACTER NO-UNDO.
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
@@ -59,7 +58,6 @@ CLASS OpenedgeExercises.ExportImportTT:
   ------------------------------------------------------------------------------*/  
   METHOD PUBLIC VOID mImportJSON(pcFile AS CHARACTER):
     DEFINE VARIABLE cTargetType AS CHARACTER NO-UNDO.
-    DEFINE VARIABLE cFile       AS CHARACTER NO-UNDO.
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     

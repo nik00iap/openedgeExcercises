@@ -14,7 +14,7 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.TempTableStaticIndex: 
   
-  DEFINE TEMP-TABLE tt-Customer LIKE Customer NO-UNDO.
+  DEFINE TEMP-TABLE tt-Customer LIKE Customer.
     
   /*------------------------------------------------------------------------------
    Purpose:
@@ -39,7 +39,7 @@ CLASS OpenedgeExercises.TempTableStaticIndex:
     
     FOR EACH bCustomer NO-LOCK:
       CREATE btt-Customer.
-        BUFFER-COPY bCustomer TO btt-Customer.
+      BUFFER-COPY bCustomer TO btt-Customer.
       
     END.
   END METHOD.
@@ -55,12 +55,12 @@ CLASS OpenedgeExercises.TempTableStaticIndex:
     
     DO iX = 20001 TO 1000000:
      
-        CREATE btt-Customer.
-          ASSIGN
-            btt-Customer.CustNum  = iX
-            btt-Customer.Name = "Test" + String(iX)
-            btt-Customer.Balance = iX * 0.01
-          . 
+      CREATE btt-Customer.
+      ASSIGN
+        btt-Customer.CustNum  = iX
+        btt-Customer.Name = "Test" + String(iX)
+        btt-Customer.Balance = iX * 0.01
+      . 
     END.
   END METHOD.
   

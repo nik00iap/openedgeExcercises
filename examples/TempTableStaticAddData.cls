@@ -16,9 +16,9 @@ CLASS OpenedgeExercises.TempTableStaticAddData:
   
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
-    FIELD Name AS CHARACTER
+    FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
       
   
   /*------------------------------------------------------------------------------
@@ -47,8 +47,8 @@ CLASS OpenedgeExercises.TempTableStaticAddData:
       CREATE btt-Customer.
        ASSIGN
         btt-Customer.CustNum  = bCustomer.CustNum
-        btt-Customer.Name = bCustomer.Name
-        btt-Customer.Balance = bCustomer.Balance
+        btt-Customer.Name     = bCustomer.Name
+        btt-Customer.Balance  = bCustomer.Balance
         . 
       
     END.
@@ -69,8 +69,8 @@ CLASS OpenedgeExercises.TempTableStaticAddData:
         CREATE btt-Customer.
           ASSIGN
             btt-Customer.CustNum  = iX
-            btt-Customer.Name = "Test " + STRING(iX)
-            btt-Customer.Balance = iX * 10
+            btt-Customer.Name     = "Test " + STRING(iX)
+            btt-Customer.Balance  = iX * 10
             . 
       END.
     END.

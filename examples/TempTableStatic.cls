@@ -19,7 +19,7 @@ CLASS OpenedgeExercises.TempTableStatic:
     FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
     FIELD Country AS CHARACTER
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
       
   /*------------------------------------------------------------------------------
    Purpose:
@@ -42,7 +42,7 @@ CLASS OpenedgeExercises.TempTableStatic:
   ------------------------------------------------------------------------------*/
   METHOD PRIVATE VOID mFillTT():
     DEFINE BUFFER btt-Customer FOR tt-Customer.
-    DEFINE BUFFER bCustomer FOR Customer.
+    DEFINE BUFFER bCustomer    FOR Customer.
     
     FOR EACH bCustomer NO-LOCK:
       CREATE btt-Customer.

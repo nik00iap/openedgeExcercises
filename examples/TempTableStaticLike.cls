@@ -14,7 +14,7 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.TempTableStaticLike: 
   
-  DEFINE TEMP-TABLE tt-Customer LIKE Customer NO-UNDO.
+  DEFINE TEMP-TABLE tt-Customer LIKE Customer.
 
       
   
@@ -41,7 +41,7 @@ CLASS OpenedgeExercises.TempTableStaticLike:
     
     FOR EACH bCustomer:
       CREATE btt-Customer.
-        BUFFER-COPY bCustomer TO btt-Customer.
+      BUFFER-COPY bCustomer TO btt-Customer.
       
     END.
   END METHOD.

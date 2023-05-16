@@ -14,8 +14,7 @@ USING Progress.Lang.*.
 
 CLASS OpenedgeExercises.StaticvsDynamic: 
   
-  DEFINE STREAM   sExport.
-  DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.  
+  DEFINE STREAM sExport.  
   
   /*------------------------------------------------------------------------------
    Purpose:
@@ -42,12 +41,13 @@ CLASS OpenedgeExercises.StaticvsDynamic:
                                   pcNameFrom    AS CHARACTER, 
                                   pcNameTo      AS CHARACTER):
     
-    DEFINE VARIABLE hDynBufExpTable   AS HANDLE    NO-UNDO.
-    DEFINE VARIABLE hDynQueryExpTable AS HANDLE    NO-UNDO.
-    DEFINE VARIABLE cWhereClause      AS CHARACTER NO-UNDO.
-    DEFINE VARIABLE iStart            AS INTEGER   NO-UNDO.
-    DEFINE VARIABLE iEnd              AS INTEGER   NO-UNDO.
-    DEFINE VARIABLE iRecs             AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE hDynBufExpTable    AS HANDLE    NO-UNDO.
+    DEFINE VARIABLE hDynQueryExpTable  AS HANDLE    NO-UNDO.
+    DEFINE VARIABLE cWhereClause       AS CHARACTER NO-UNDO.
+    DEFINE VARIABLE iStart             AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iEnd               AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iRecs              AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.
 
     cSqlExportFileName = 'C:\temp\DynamicDatabaseReadDifferingWhere.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  
@@ -116,9 +116,10 @@ CLASS OpenedgeExercises.StaticvsDynamic:
                                  pcNameFrom    AS CHARACTER, 
                                  pcNameTo      AS CHARACTER):
     
-    DEFINE VARIABLE iStart            AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iEnd              AS INTEGER NO-UNDO.
-    DEFINE VARIABLE iRecs             AS INTEGER NO-UNDO.
+    DEFINE VARIABLE iStart             AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iEnd               AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE iRecs              AS INTEGER   NO-UNDO.
+    DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.
     
     DEFINE BUFFER bCustomer FOR Customer.
     
@@ -132,135 +133,134 @@ CLASS OpenedgeExercises.StaticvsDynamic:
     
     iStart = MTIME.
     
-      IF pcCountryFrom <> "" AND pcCountryTo <> "" AND pcNameFrom <> "" AND cpNameTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country > pcCountryFrom 
-            AND bCustomer.Country < pcCountryTo 
-            AND bCustomer.Name > pcNameFrom 
-            AND bCustomer.Name < pcNameTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    IF pcCountryFrom <> "" AND pcCountryTo <> "" AND pcNameFrom <> "" AND pcNameTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country > pcCountryFrom 
+          AND bCustomer.Country < pcCountryTo 
+          AND bCustomer.Name > pcNameFrom 
+          AND bCustomer.Name < pcNameTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryFrom <> "" AND pcCountryTo <> "" AND pcNameFrom <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country > pcCountryFrom 
-            AND bCustomer.Country < pcCountryTo 
-            AND bCustomer.Name > pcNameFrom 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryFrom <> "" AND pcCountryTo <> "" AND pcNameFrom <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country > pcCountryFrom 
+          AND bCustomer.Country < pcCountryTo 
+          AND bCustomer.Name > pcNameFrom 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryFrom <> "" AND pcCountryTo <> "" AND pcNameTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country > pcCountryFrom 
-            AND bCustomer.Country < pcCountryTo 
-            AND bCustomer.Name < pcNameTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryFrom <> "" AND pcCountryTo <> "" AND pcNameTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country > pcCountryFrom 
+          AND bCustomer.Country < pcCountryTo 
+          AND bCustomer.Name < pcNameTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryFrom <> "" AND pcCountryTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country > pcCountryFrom 
-            AND bCustomer.Country < pcCountryTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryFrom <> "" AND pcCountryTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country > pcCountryFrom 
+          AND bCustomer.Country < pcCountryTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryFrom <> "" AND pcNameFrom <> "" AND pcNameTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country > pcCountryFrom 
-            AND bCustomer.Name > pcNameFrom 
-            AND bCustomer.Name < pcNameTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryFrom <> "" AND pcNameFrom <> "" AND pcNameTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country > pcCountryFrom 
+          AND bCustomer.Name > pcNameFrom 
+          AND bCustomer.Name < pcNameTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryFrom <> "" AND pcNameFrom <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country > pcCountryFrom 
-            AND bCustomer.Name > pcNameFrom 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryFrom <> "" AND pcNameFrom <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country > pcCountryFrom 
+          AND bCustomer.Name > pcNameFrom 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryFrom <> "" AND pcNameTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country > pcCountryFrom 
-            AND bCustomer.Name < pcNameTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryFrom <> "" AND pcNameTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country > pcCountryFrom 
+          AND bCustomer.Name < pcNameTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryFrom <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country > pcCountryFrom 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryFrom <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country > pcCountryFrom 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryTo <> "" AND pcNameFrom <> "" AND pcNameTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country < pcCountryTo 
-            AND bCustomer.Name > pcNameFrom 
-            AND bCustomer.Name < pcNameTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryTo <> "" AND pcNameFrom <> "" AND pcNameTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country < pcCountryTo 
+          AND bCustomer.Name > pcNameFrom 
+          AND bCustomer.Name < pcNameTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryTo <> "" AND pcNameFrom <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country < pcCountryTo 
-            AND bCustomer.Name > pcNameFrom  
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryTo <> "" AND pcNameFrom <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country < pcCountryTo 
+          AND bCustomer.Name > pcNameFrom  
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryTo <> "" AND pcNameTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country < pcCountryTo 
-            AND bCustomer.Name < pcNameTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryTo <> "" AND pcNameTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country < pcCountryTo 
+          AND bCustomer.Name < pcNameTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcCountryTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Country < pcCountryTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcCountryTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Country < pcCountryTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcNameFrom <> "" AND pcNameTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Name > pcNameFrom 
-            AND bCustomer.Name < pcNameTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcNameFrom <> "" AND pcNameTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Name > pcNameFrom 
+          AND bCustomer.Name < pcNameTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcNameFrom <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Name > pcNameFrom 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcNameFrom <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Name > pcNameFrom 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE IF pcNameTo <> "" THEN DO:
-        FOR EACH bCustomer 
-          WHERE bCustomer.Name < pcNameTo 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE IF pcNameTo <> "" THEN DO:
+      FOR EACH bCustomer 
+        WHERE bCustomer.Name < pcNameTo 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-      ELSE DO:
-        FOR EACH bCustomer 
-            NO-LOCK:
-          iRecs = iRecs + 1.
-        END.
+    END.
+    ELSE DO:
+      FOR EACH bCustomer 
+          NO-LOCK:
+        iRecs = iRecs + 1.
       END.
-    END CASE.
+    END.
     
     iEnd = MTIME.
     

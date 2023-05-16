@@ -16,9 +16,9 @@ CLASS OpenedgeExercises.TempTableStaticBufferCopy:
   
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
-    FIELD Name AS CHARACTER
+    FIELD Name    AS CHARACTER
     FIELD Balance AS DECIMAL
-    INDEX CustNum CustNum.
+    INDEX CustNum IS PRIMARY UNIQUE CustNum.
       
   
   /*------------------------------------------------------------------------------
