@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.TempTableTime: 
+CLASS examples.TempTableTime: 
   
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
@@ -52,7 +52,7 @@ CLASS OpenedgeExercises.TempTableTime:
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     DEFINE BUFFER bCustomer    FOR Customer.
     
-    cSqlExportFileName = 'C:\temp\WithoutWC.txt'.
+    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'WithoutWC.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.
     
     PUT STREAM sExport UNFORMATTED

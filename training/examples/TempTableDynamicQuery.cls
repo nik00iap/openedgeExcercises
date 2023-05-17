@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.TempTableDynamicQuery: 
+CLASS examples.TempTableDynamicQuery: 
 
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
@@ -53,7 +53,7 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
     
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
-    cSqlExportFileName = 'C:\temp\DynamicDatabseWrite.txt'.
+    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'DynamicDatabseWrite.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  
     
     PUT STREAM sExport UNFORMATTED 
@@ -116,7 +116,7 @@ CLASS OpenedgeExercises.TempTableDynamicQuery:
     DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     
-    cSqlExportFileName = 'C:\temp\DynamicDatabseRead.txt'.
+    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'DynamicDatabseRead.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  
     
     PUT STREAM sExport UNFORMATTED 

@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.TempTableStaticIndexError: 
+CLASS examples.TempTableStaticIndexError: 
   
   DEFINE TEMP-TABLE tt-Customer LIKE Customer
     INDEX Balance Balance.

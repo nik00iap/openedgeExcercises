@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.TempTableStatic: 
+CLASS examples.TempTableStatic: 
   
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER

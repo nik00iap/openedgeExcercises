@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.StaticvsDynamic: 
+CLASS examples.StaticvsDynamic: 
   
   DEFINE STREAM sExport.  
   
@@ -49,7 +49,7 @@ CLASS OpenedgeExercises.StaticvsDynamic:
     DEFINE VARIABLE iRecs              AS INTEGER   NO-UNDO.
     DEFINE VARIABLE cSqlExportFileName AS CHARACTER NO-UNDO.
 
-    cSqlExportFileName = 'C:\temp\DynamicDatabaseReadDifferingWhere.txt'.
+    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'DynamicDatabaseReadDifferingWhere.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  
     
     PUT STREAM sExport UNFORMATTED 
@@ -123,7 +123,7 @@ CLASS OpenedgeExercises.StaticvsDynamic:
     
     DEFINE BUFFER bCustomer FOR Customer.
     
-    cSqlExportFileName = 'C:\temp\StaticDatabaseReadDifferingWhere.txt'.
+    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'StaticDatabaseReadDifferingWhere.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  
     
     PUT STREAM sExport UNFORMATTED 

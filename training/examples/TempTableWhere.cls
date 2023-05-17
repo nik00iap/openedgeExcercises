@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.TempTableWhere: 
+CLASS examples.TempTableWhere: 
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
@@ -54,8 +54,8 @@ CLASS OpenedgeExercises.TempTableWhere:
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     DEFINE BUFFER bCustomer    FOR Customer.
     
-/*    cSqlExportFileName = 'C:\temp\WithIF.txt'.*/
-    cSqlExportFileName = 'C:\temp\WithWHERE.txt'.
+/*    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'WithIF.txt'.*/
+    cSqlExportFileName = SESSION:TEMP-DIRECTORY + 'WithWHERE.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  
     
     PUT STREAM sExport UNFORMATTED 

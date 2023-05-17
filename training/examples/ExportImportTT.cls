@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.ExportImportTT: 
+CLASS examples.ExportImportTT: 
   
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
@@ -23,14 +23,14 @@ CLASS OpenedgeExercises.ExportImportTT:
       
   /*------------------------------------------------------------------------------
    Purpose:
-   Notes:"C:\temp\SportsCustJSON.json".
-         "C:\temp\SportsCustXML.xml"         
+   Notes:"SESSION:TEMP-DIRECTORY  + SportsCustJSON.json".
+         "SESSION:TEMP-DIRECTORY  + SportsCustXML.xml"         
   ------------------------------------------------------------------------------*/
 
   CONSTRUCTOR PUBLIC ExportImportTT (  ):
     SUPER ().
 
-    mImportXML("C:\temp\SportsCustXML.xml").
+    mImportXML(SESSION:TEMP-DIRECTORY  + "SportsCustXML.xml").
     mDisplayTT().
     
     MESSAGE "finished"

@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.TempTableStaticLike: 
+CLASS examples.TempTableStaticLike: 
   
   DEFINE TEMP-TABLE tt-Customer LIKE Customer.
 

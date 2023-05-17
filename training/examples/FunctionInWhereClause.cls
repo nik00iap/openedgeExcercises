@@ -12,7 +12,7 @@
 USING Progress.Lang.*.
 
 
-CLASS OpenedgeExercises.FunctionInWhereClause: 
+CLASS examples.FunctionInWhereClause: 
   DEFINE TEMP-TABLE tt-Customer NO-UNDO
     FIELD CustNum AS INTEGER
     FIELD Name    AS CHARACTER
@@ -55,7 +55,7 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     DEFINE BUFFER bCustomer    FOR Customer.
     
-    cSqlExportFileName = 'C:\temp\DatabseRead.txt'.
+    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'DatabseRead.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  
     
     PUT STREAM sExport UNFORMATTED 
@@ -103,7 +103,7 @@ CLASS OpenedgeExercises.FunctionInWhereClause:
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     DEFINE BUFFER bCustomer    FOR Customer.
     
-    cSqlExportFileName = 'C:\temp\DatabaseReadWithFunction.txt'.
+    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'DatabaseReadWithFunction.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  
     
     PUT STREAM sExport UNFORMATTED 
