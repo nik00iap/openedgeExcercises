@@ -1,0 +1,46 @@
+#-d dmy          
+#-E             
+-h 10
+
+-yy 1990        
+-D 500
+-T tmp      
+
+-mmax 60000
+
+# -Bt   16000
+# -l    2000
+-s 400
+-tmpbsize 1  
+-B 100 
+
+
+-debugalert
+-inp 32000
+-TB   24
+-TM   24
+#-yc
+#-yd
+
+-cpinternal UTF-8
+-cpstream UTF-8
+-cpcoll Basic
+-cpcase Basic
+
+
+-reusableObjects 0
+-IOEverywhere 1
+
+
+#-ttbaseindex 1
+#-ttindexrangesize 500
+#-ttbasetable 1
+#-tttablerangesize 500
+
+#-proxyhost mowgli.iap.off
+#-proxyport 3128
+
+#-clientlog mylog.lg
+#-logginglevel 4
+#-logentrytypes 4GLTrace
+

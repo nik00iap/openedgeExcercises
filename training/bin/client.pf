@@ -1,0 +1,3 @@
+-pf bin/database.pf
+-pf bin/common.pf
+-debugReady 0

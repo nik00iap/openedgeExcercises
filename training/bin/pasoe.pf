@@ -1,0 +1,3 @@
+-pf bin/common.pf 
+-URL http://localhost:7493/apsv -sessionModel session-free
+

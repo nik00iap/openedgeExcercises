@@ -1,0 +1,52 @@
+[AppServer.Agent.mypasoe]
+    numInitialSessions=1
+    PROPATH=.,${CATALINA_BASE}/webapps/ROOT/WEB-INF/openedge,${CATALINA_BASE}/openedge,${DLC}/tty,${DLC}/tty/netlib/OpenEdge.Net.pl
+    uuid=http://localhost:7493/mypasoe
+    workDir=d:\dev\openedgeExcercises\training 
+
+[AppServer.SessMgr.mypasoe]
+    agentLogEntryTypes=ASPlumbing,DB.Connects,4GLTrace
+    agentLogFile=${catalina.base}/logs/mypasoe.agent.{yyyy-mm-dd}.log
+    agentLoggingLevel=1
+    agentStartupParam=-T "${catalina.base}/temp" -pf bin/pasoe.pf
+    collectMetrics=3
+
+[mypasoe]
+    webApps=ROOT
+
+[mypasoe.ROOT]
+    allowRuntimeUpdates=0
+    collectMetrics=1
+    statusEnabled=0
+
+[mypasoe.ROOT.APSV]
+    adapterEnabled=1
+    enableRequestChunking=1
+    oepingEnabled=0
+    oepingProcedure=
+    statusEnabled=1
+    useHTTPSessions=1
+
+[mypasoe.ROOT.REST]
+    adapterEnabled=0
+
+[mypasoe.ROOT.SOAP]
+    adapterEnabled=0
+    adminEnabled=1
+    adminSoapAction=urn:services-progress-com:wsa-admin:01
+    debugClients=
+    wsaUrl=http://${psc.as.host.name}:${psc.as.http.port}/soap
+    wsdlEnabled=1
+
+[mypasoe.ROOT.WEB]
+    adapterEnabled=1
+    allowRuntimeUpdates=1
+    collectMetrics=1
+    defaultCookieDomain=
+    defaultCookiePath=
+    defaultHandler=OpenEdge.Web.DefaultWebHandler
+    handler1=OpenEdge.Web.DataObject.DataObjectHandler: /mytest
+    srvrAppMode=production
+    srvrDebug=0
+    statusEnabled=1
+    wsRoot=/static/webspeed

@@ -1,0 +1,7 @@
+
+#-db sports.db
+#-S 57345 
+
+
+
+-rereadnolock
