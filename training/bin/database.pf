@@ -1,7 +1,11 @@
 
-#-db sports.db
-#-S 57345 
+#-db d:\dev\openedgeExcercises\db\sports2000.db
 
+-db sports2000.db
+-H LOCALHOST 
+-S 56132
 
+#-1
+#-RO
 
 -rereadnolock

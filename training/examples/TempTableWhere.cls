@@ -54,6 +54,10 @@ CLASS examples.TempTableWhere:
     DEFINE BUFFER btt-Customer FOR tt-Customer.
     DEFINE BUFFER bCustomer    FOR Customer.
     
+    MESSAGE SESSION:TEMP-DIRECTORY
+    VIEW-AS ALERT-BOX.
+    
+    
 /*    cSqlExportFileName = SESSION:TEMP-DIRECTORY  + 'WithIF.txt'.*/
     cSqlExportFileName = SESSION:TEMP-DIRECTORY + 'WithWHERE.txt'.
     OUTPUT STREAM sExport TO VALUE(cSqlExportFileName) APPEND.  

@@ -30,7 +30,7 @@ CLASS examples.PersistentProcedureUse:
     SUPER ().
     
     mFillTT().
-    RUN OpenedgeExercises/TTReader.p PERSISTENT SET hReader.
+    RUN examples/TTReader.p PERSISTENT SET hReader.
     RUN fillTable IN hReader (INPUT TABLE tt-Customer BIND).
     //RUN deleteOdds IN hReader.
 

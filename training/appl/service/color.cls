@@ -61,6 +61,7 @@ CLASS appl.service.color:
   
     DEF BUFFER BTTCol FOR ttcol.
   
+/*
     iColor = RGB-VALUE( MINIMUM(MAXIMUM(INT(ENTRY(1,pcColor)),0),255),
                         MINIMUM(MAXIMUM(INT(ENTRY(2,pcColor)),0),255),
                         MINIMUM(MAXIMUM(INT(ENTRY(3,pcColor)),0),255)) .
@@ -75,7 +76,7 @@ CLASS appl.service.color:
         NO-ERROR.
       IF NOT AVAILABLE BTTCol THEN DO:
         // error handling 
-        MESSAGE "Farbtabelle ist voll !".
+        //MESSAGE "Farbtabelle ist voll !".
       END.
       ELSE DO:
 
@@ -85,7 +86,7 @@ CLASS appl.service.color:
     END. /* of ELSE DO*/
 
     RETURN IF AVAILABLE BTTCol THEN BTTCol.ColNum ELSE ?.
-
+*/
   END METHOD.
 
 
