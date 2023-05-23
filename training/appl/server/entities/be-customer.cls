@@ -60,7 +60,7 @@ CLASS appl.server.entities.be-customer:
     
     FIND FIRST bCust WHERE ROWID(bCust)= TO-ROWID(pcRowid) NO-LOCK NO-ERROR.
     
-    FIND NEXT bCust NO-LOCK NO-ERROR.
+    FIND PREV bCust NO-LOCK NO-ERROR.
     
     RETURN BUFFER bCust:HANDLE.
   END METHOD.

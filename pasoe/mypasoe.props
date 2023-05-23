@@ -8,7 +8,7 @@
     agentLogEntryTypes=ASPlumbing,DB.Connects,4GLTrace
     agentLogFile=${catalina.base}/logs/mypasoe.agent.{yyyy-mm-dd}.log
     agentLoggingLevel=1
-    agentStartupParam=-T "${catalina.base}/temp" -pf bin/pasoe.pf
+    agentStartupParam=-T "${catalina.base}/temp" -pf bin/server.pf
     collectMetrics=3
 
 [mypasoe]
@@ -45,7 +45,10 @@
     defaultCookieDomain=
     defaultCookiePath=
     defaultHandler=OpenEdge.Web.DefaultWebHandler
-    handler1=OpenEdge.Web.DataObject.DataObjectHandler: /mytest
+ 	handler1=WebHandler.HelloWorldWebHandler: /HelloWorld
+	handler2=WebHandler.HelloWorldHtmlWebHandler: /HelloWorldHTML
+	handler3=WebHandler.CustomersWebHandler: /Customers/{Custnum}
+	handler4=WebHandler.CustomersWebHandler: /Customers
     srvrAppMode=production
     srvrDebug=0
     statusEnabled=1
